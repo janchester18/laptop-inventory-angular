@@ -3,9 +3,10 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
+  standalone: true, // Ensure it's a standalone component
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'] // Fix the typo (styleUrl -> styleUrls)
 })
 export class AppComponent {
   title = 'laptop-inventory-angular';

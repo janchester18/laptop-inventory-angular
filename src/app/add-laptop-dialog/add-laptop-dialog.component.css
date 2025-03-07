@@ -1,0 +1,7 @@
+::ng-deep .mat-mdc-dialog-surface {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300%;
+  margin-left: -140px;
+}

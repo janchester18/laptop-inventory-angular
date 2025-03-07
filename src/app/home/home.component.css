@@ -1,0 +1,126 @@
+.dashboard-wrapper {
+  text-align: center;
+}
+
+.dashboard-card-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Grid container */
+.dcontainer {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Default: 4 cards per row */
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 1097px) {
+  .dcontainer {
+    grid-template-columns: repeat(2, 1fr); /* 3 cards per row for tablets */
+    gap: 15px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .dcontainer {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 grid for mobile */
+    gap: 15px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .dcontainer {
+    grid-template-columns: repeat(2, 1fr); /* Ensures 2 columns on smaller phones */
+    gap: 10px;
+  }
+}
+
+
+.dashboard-card {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+mat-card-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.card-icon {
+  font-size: 40px;
+}
+
+.card-text h3 {
+  margin: 0;
+  font-size: 5rem;
+}
+
+.card-text p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.table-container {
+  width: 96%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  background-color: white;
+  border: none;
+  overflow: hidden; /* Clips content to match border-radius */
+  border-radius: 10px; /* ✅ Apply border-radius to wrapper */
+}
+
+/* ✅ Apply border-radius to the scrolling wrapper */
+.table-responsive {
+  overflow-x: auto; /* Allows horizontal scrolling */
+  max-width: 100%;
+  border-radius: 10px; /* ✅ Ensures corners are rounded */
+}
+
+/* ✅ Force Material Table to Respect Border Radius */
+::ng-deep .mat-mdc-table {
+  border-radius: 10px !important; /* ✅ Ensures rounded corners */
+  min-width: 600px;
+  width: 100%;
+  overflow: hidden !important;
+}
+
+/* ✅ Ensure border-radius is maintained even on small screens */
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+    display: block;
+    border-radius: 10px; /* ✅ Keep rounded corners */
+  }
+
+  ::ng-deep .mat-mdc-table {
+    min-width: 500px;
+    border-radius: 6px !important; /* ✅ Maintain rounded corners */
+    overflow: hidden !important;
+  }
+}
+
+
+.table-container th {
+  background-color: #333333;
+  color: white;
+}
+
+

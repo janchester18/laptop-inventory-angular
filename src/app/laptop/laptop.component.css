@@ -1,0 +1,82 @@
+mat-card-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.table-container {
+  width: 96%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  background-color: white;
+  border: none;
+  overflow: hidden; /* Clips content to match border-radius */
+  border-radius: 10px; /* ✅ Apply border-radius to wrapper */
+}
+
+/* ✅ Apply border-radius to the scrolling wrapper */
+.table-responsive {
+  overflow-x: auto; /* Allows horizontal scrolling */
+  max-width: 100%;
+  border-radius: 10px; /* ✅ Ensures corners are rounded */
+}
+
+/* ✅ Force Material Table to Respect Border Radius */
+::ng-deep .mat-mdc-table {
+  border-radius: 10px !important; /* ✅ Ensures rounded corners */
+  min-width: 600px;
+  width: 100%;
+  overflow: hidden !important;
+}
+
+/* ✅ Ensure border-radius is maintained even on small screens */
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+    display: block;
+    border-radius: 10px; /* ✅ Keep rounded corners */
+  }
+
+  ::ng-deep .mat-mdc-table {
+    min-width: 500px;
+    border-radius: 6px !important; /* ✅ Maintain rounded corners */
+    overflow: hidden !important;
+  }
+}
+
+.laptop-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.table-container th {
+  background-color: #333333;
+  color: white;
+}
+
+.table-controls {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-button {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 200px !important;
+  height: 50px;
+  border-radius: 8px;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 200px;
+  height: 50px !important;
+  margin-bottom: 20px;
+}

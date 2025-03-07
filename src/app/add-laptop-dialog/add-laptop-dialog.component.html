@@ -1,0 +1,25 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title>Add New Laptop</h2>
+  <mat-dialog-content class="dialog-content">
+    <mat-form-field appearance="outline">
+      <mat-label>Employee Name</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Serial Number</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Purchased Date</mat-label>
+      <input matInput type="date">
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-flat-button color="primary" (click)="saveLaptop()">Save</button>
+  </mat-dialog-actions>
+</div>
+
