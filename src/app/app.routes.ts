@@ -7,10 +7,10 @@ import { UserManagementComponent } from './user-management/user-management.compo
 export const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent,
-    children: [ // 👈 Define child routes here
+    component: LayoutComponent, // 👈 Wraps the children
+    children: [
       { path: '', component: HomeComponent }, // Default route (Home)
-      { path: 'laptop', component: LaptopComponent }, // About Page
+      { path: 'laptop', component: LaptopComponent }, // Laptop Page
       { path: 'user-management', component: UserManagementComponent } // User Management Page
     ]
   }

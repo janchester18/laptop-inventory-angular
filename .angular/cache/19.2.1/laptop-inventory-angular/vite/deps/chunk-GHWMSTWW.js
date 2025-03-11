@@ -1,4 +1,7 @@
 import {
+  BidiModule
+} from "./chunk-KBNU6IT6.js";
+import {
   _CdkPrivateStyleLoader,
   _VisuallyHiddenLoader
 } from "./chunk-UJWCJR73.js";
@@ -12,10 +15,7 @@ import {
   coerceElement,
   coerceNumberProperty,
   normalizePassiveListenerOptions
-} from "./chunk-VK63RFVF.js";
-import {
-  BidiModule
-} from "./chunk-KBNU6IT6.js";
+} from "./chunk-BPWXCFOF.js";
 import {
   DOCUMENT
 } from "./chunk-RKPTYQ5T.js";
@@ -97,6 +97,7 @@ import {
 } from "./chunk-DYFUF3VN.js";
 
 // node_modules/@angular/cdk/fesm2022/keycodes.mjs
+var BACKSPACE = 8;
 var TAB = 9;
 var ENTER = 13;
 var SHIFT = 16;
@@ -123,6 +124,14 @@ function hasModifierKey(event, ...modifiers) {
     return modifiers.some((modifier) => event[modifier]);
   }
   return event.altKey || event.shiftKey || event.ctrlKey || event.metaKey;
+}
+
+// node_modules/@angular/cdk/fesm2022/coercion/private.mjs
+function coerceObservable(data) {
+  if (!isObservable(data)) {
+    return of(data);
+  }
+  return data;
 }
 
 // node_modules/@angular/cdk/fesm2022/observers.mjs
@@ -369,14 +378,6 @@ var ObserversModule = class _ObserversModule {
     }]
   }], null, null);
 })();
-
-// node_modules/@angular/cdk/fesm2022/coercion/private.mjs
-function coerceObservable(data) {
-  if (!isObservable(data)) {
-    return of(data);
-  }
-  return data;
-}
 
 // node_modules/@angular/cdk/fesm2022/layout.mjs
 var LayoutModule = class _LayoutModule {
@@ -1167,6 +1168,17 @@ var ListKeyManager = class {
         this._activeItemIndex = newIndex;
         this._typeahead?.setCurrentSelectedItemIndex(newIndex);
       }
+    }
+  }
+};
+var ActiveDescendantKeyManager = class extends ListKeyManager {
+  setActiveItem(index) {
+    if (this.activeItem) {
+      this.activeItem.setInactiveStyles();
+    }
+    super.setActiveItem(index);
+    if (this.activeItem) {
+      this.activeItem.setActiveStyles();
     }
   }
 };
@@ -3064,6 +3076,17 @@ function MatOption_Conditional_6_Template(rf, ctx) {
 var _c5 = ["mat-internal-form-field", ""];
 var _c6 = ["*"];
 var VERSION = new Version("19.2.2");
+var AnimationCurves = class {
+  static STANDARD_CURVE = "cubic-bezier(0.4,0.0,0.2,1)";
+  static DECELERATION_CURVE = "cubic-bezier(0.0,0.0,0.2,1)";
+  static ACCELERATION_CURVE = "cubic-bezier(0.4,0.0,1,1)";
+  static SHARP_CURVE = "cubic-bezier(0.4,0.0,0.6,1)";
+};
+var AnimationDurations = class {
+  static COMPLEX = "375ms";
+  static ENTERING = "225ms";
+  static EXITING = "195ms";
+};
 var MATERIAL_SANITY_CHECKS = new InjectionToken("mat-sanity-checks", {
   providedIn: "root",
   factory: () => true
@@ -3744,6 +3767,23 @@ var MatLine = class _MatLine {
     }]
   }], null, null);
 })();
+function setLines(lines, element, prefix = "mat") {
+  lines.changes.pipe(startWith(lines)).subscribe(({
+    length
+  }) => {
+    setClass(element, `${prefix}-2-line`, false);
+    setClass(element, `${prefix}-3-line`, false);
+    setClass(element, `${prefix}-multi-line`, false);
+    if (length === 2 || length === 3) {
+      setClass(element, `${prefix}-${length}-line`, true);
+    } else if (length > 3) {
+      setClass(element, `${prefix}-multi-line`, true);
+    }
+  });
+}
+function setClass(element, className, isAdd) {
+  element.nativeElement.classList.toggle(className, isAdd);
+}
 var MatLineModule = class _MatLineModule {
   static ɵfac = function MatLineModule_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MatLineModule)();
@@ -4895,6 +4935,29 @@ var MatOption = class _MatOption {
     }]
   });
 })();
+function _countGroupLabelsBeforeOption(optionIndex, options, optionGroups) {
+  if (optionGroups.length) {
+    let optionsArray = options.toArray();
+    let groups = optionGroups.toArray();
+    let groupCounter = 0;
+    for (let i = 0; i < optionIndex + 1; i++) {
+      if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
+        groupCounter++;
+      }
+    }
+    return groupCounter;
+  }
+  return 0;
+}
+function _getOptionScrollPosition(optionOffset, optionHeight, currentScrollPosition, panelHeight) {
+  if (optionOffset < currentScrollPosition) {
+    return optionOffset;
+  }
+  if (optionOffset + optionHeight > currentScrollPosition + panelHeight) {
+    return Math.max(0, optionOffset - panelHeight + optionHeight);
+  }
+  return currentScrollPosition;
+}
 var MatOptionModule = class _MatOptionModule {
   static ɵfac = function MatOptionModule_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MatOptionModule)();
@@ -5116,27 +5179,73 @@ var _MatInternalFormField = class __MatInternalFormField {
 })();
 
 export {
+  BACKSPACE,
   ENTER,
   ESCAPE,
   SPACE,
+  PAGE_UP,
+  PAGE_DOWN,
+  END,
+  HOME,
+  LEFT_ARROW,
+  UP_ARROW,
+  RIGHT_ARROW,
+  DOWN_ARROW,
   A,
   hasModifierKey,
   CdkObserveContent,
   ObserversModule,
+  addAriaReferencedId,
+  removeAriaReferencedId,
+  ActiveDescendantKeyManager,
   FocusKeyManager,
   InteractivityChecker,
   FocusTrapFactory,
+  CdkTrapFocus,
+  LiveAnnouncer,
   FocusMonitor,
+  CdkMonitorFocus,
   A11yModule,
   _IdGenerator,
+  VERSION,
+  AnimationCurves,
+  AnimationDurations,
+  MATERIAL_SANITY_CHECKS,
   MatCommonModule,
   _ErrorStateTracker,
+  MAT_DATE_LOCALE,
+  MAT_DATE_LOCALE_FACTORY,
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  NativeDateAdapter,
+  MAT_NATIVE_DATE_FORMATS,
+  NativeDateModule,
+  MatNativeDateModule,
+  provideNativeDateAdapter,
+  ShowOnDirtyErrorStateMatcher,
   ErrorStateMatcher,
   _StructuralStylesLoader,
+  MatLine,
+  setLines,
+  MatLineModule,
+  RippleState,
+  RippleRef,
+  defaultRippleAnimationConfig,
   RippleRenderer,
   MAT_RIPPLE_GLOBAL_OPTIONS,
+  MatRipple,
   MatRippleModule,
+  MatPseudoCheckbox,
   MatPseudoCheckboxModule,
-  MatRippleLoader
+  MAT_OPTION_PARENT_COMPONENT,
+  MAT_OPTGROUP,
+  MatOptgroup,
+  MatOptionSelectionChange,
+  MatOption,
+  _countGroupLabelsBeforeOption,
+  _getOptionScrollPosition,
+  MatOptionModule,
+  MatRippleLoader,
+  _MatInternalFormField
 };
-//# sourceMappingURL=chunk-VCKLLWDW.js.map
+//# sourceMappingURL=chunk-GHWMSTWW.js.map

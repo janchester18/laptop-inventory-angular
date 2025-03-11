@@ -1,7 +1,45 @@
-::ng-deep .mat-mdc-dialog-surface {
+
+
+::ng-deep #cancel-button {
+  background-color: red !important;
+  border-radius: 8px !important;
+}
+
+::ng-deep #save-button {
+  background-color: green !important;
+  border-radius: 8px !important;
+}
+
+::ng-deep #dialog-container {
+  padding: 20px;
+  height: 50%;
+}
+
+::ng-deep .half-width {
+  width: calc(50% - 10px); /* Two items per row with spacing */
+}
+
+::ng-deep .full-width {
+  width: 100%;
+}
+
+::ng-deep mat-dialog-actions {
+  padding-top: 16px;
+}
+
+::ng-deep .cdk-overlay-pane.mat-mdc-dialog-panel {
+  max-width: 1000px !important;
+  width: 40% !important;
+}
+
+::ng-deep .row {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300%;
-  margin-left: -140px;
+  justify-content: space-evenly;
+  gap: 10px;
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  margin-top: 0;
 }

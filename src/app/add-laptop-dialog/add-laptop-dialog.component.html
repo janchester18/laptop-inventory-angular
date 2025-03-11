@@ -1,25 +1,94 @@
-<div class="dialog-container">
-  <h2 mat-dialog-title>Add New Laptop</h2>
+<div id="dialog-container">
+  <h2 mat-dialog-title class="dialog-title">
+    <mat-icon class="title-icon">laptop_mac</mat-icon>
+    Register New Laptop
+  </h2>
+  <mat-divider></mat-divider>
+
   <mat-dialog-content class="dialog-content">
-    <mat-form-field appearance="outline">
-      <mat-label>Employee Name</mat-label>
-      <input matInput>
-    </mat-form-field>
+    <form [formGroup]="laptopForm" fxLayout="column">
+      <div class="row" fxLayout.gt-xs="row wrap" fxLayoutAlign="space-between">
+        <!-- Employee Name -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Assignee</mat-label>
+          <input matInput formControlName="employeeName" required>
+          <mat-icon matPrefix>person_outline</mat-icon>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Serial Number</mat-label>
-      <input matInput>
-    </mat-form-field>
+        <!-- Serial Number -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Serial Number</mat-label>
+          <input matInput formControlName="serialNumber" required>
+          <mat-icon matPrefix>qr_code_2</mat-icon>
+          <mat-error *ngIf="laptopForm.get('serialNumber')?.hasError('required')">
+            Serial number is required
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Purchased Date</mat-label>
-      <input matInput type="date">
-    </mat-form-field>
+      <div class="row" fxLayout.gt-xs="row wrap">
+        <!-- Laptop Model -->
+        <mat-form-field appearance="outline" class="form-field" fxFlex.gt-xs="48">
+          <mat-label>Model</mat-label>
+          <input matInput formControlName="model" required>
+          <mat-icon matPrefix>computer</mat-icon>
+        </mat-form-field>
+
+        <!-- Manufacturer -->
+        <mat-form-field appearance="outline" class="form-field" fxFlex.gt-xs="48">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select formControlName="manufacturer" required>
+            <mat-option *ngFor="let brand of manufacturers" [value]="brand">
+              {{ brand }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row" fxLayout.gt-xs="row wrap" fxLayoutGap="24px" fxLayoutAlign="space-between">
+        <!-- Purchased Date -->
+        <mat-form-field appearance="outline" class="form-field" fxFlex.gt-xs="48">
+          <mat-label>Purchase Date</mat-label>
+          <input matInput formControlName="purchaseDate" [matDatepicker]="picker" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Warranty Expiry -->
+        <mat-form-field appearance="outline" class="form-field" fxFlex.gt-xs="48">
+          <mat-label>Warranty Expiry</mat-label>
+          <input matInput formControlName="warrantyExpiry" [matDatepicker]="warrantyPicker" required>
+          <mat-datepicker-toggle matSuffix [for]="warrantyPicker"></mat-datepicker-toggle>
+          <mat-datepicker #warrantyPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <!-- Condition -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Device Condition</mat-label>
+        <mat-select formControlName="condition" required>
+          <mat-option value="new">
+            <span class="condition-option new">New</span>
+          </mat-option>
+          <mat-option value="used">
+            <span class="condition-option used">Used</span>
+          </mat-option>
+          <mat-option value="damaged">
+            <span class="condition-option damaged">Damaged</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+    </form>
   </mat-dialog-content>
 
-  <mat-dialog-actions align="end">
-    <button mat-button (click)="closeDialog()">Cancel</button>
-    <button mat-flat-button color="primary" (click)="saveLaptop()">Save</button>
+  <mat-dialog-actions class="dialog-actions" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="16px">
+    <button mat-stroked-button color="warn" (click)="closeDialog()">
+      <mat-icon>cancel</mat-icon> Discard
+    </button>
+    <button mat-raised-button color="primary" (click)="saveLaptop()" [disabled]="!laptopForm.valid">
+      <mat-icon>save</mat-icon> Register Device
+    </button>
   </mat-dialog-actions>
 </div>
-
